@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener</title>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <form id="form">
+        <input type="text" id="url" placeholder="Enter URL" style="width:300px">
+        <button type="submit">Shorten</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('form').onsubmit = async (e) => {
+            e.preventDefault();
+            const url = document.getElementById('url').value;
+            const res = await fetch('/shorten', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({url})
+            });
+            const data = await res.json();
+            if (res.ok) {
+                document.getElementById('result').innerHTML = 
+                    `Short URL: <a href="${data.short_url}">${data.short_url}</a>`;
+            } else {
+                document.getElementById('result').textContent = 'Error: ' + data.error;
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,15 +1,24 @@
-# Stage 3: Interfaces
+# Stage 4: HTTP Server
 
-This stage introduces the concept of interfaces.
+We now have a real web service.
 
-Look at `shortener/store.go`:
-- `URLStore` is an interface
-- `MemoryStore` implements it
-- Later we could add `RedisStore`, `PostgresStore`, etc.
+## Run it
+```bash
+go run .
+```
 
-The key insight: code that uses `URLStore` doesn't care *how* data is stored.
+Open http://localhost:8080 in your browser.
+
+## Try it
+1. Enter `https://google.com` - works!
+2. Enter `https://` (no host) - what happens?
+
+## Key files
+- `server/server.go` - Gin routes and handlers
+- `server/static/index.html` - simple frontend
+- `main.go` - ties everything together
 
 ## Next
 ```bash
-git checkout stage-4-http
+git checkout stage-4-fixed
 ```
