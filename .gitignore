@@ -30,3 +30,4 @@ videos/*.mov
 
 # Private instructor notes (keep outside repo)
 instructor_private/
+writing-testable-go
