@@ -29,10 +29,6 @@ func ValidateURL(rawURL string) error {
 		return ErrInvalidScheme
 	}
 
-	if parsed.Host == "" {
-		return ErrInvalidURL
-	}
-
 	return nil
 }
 

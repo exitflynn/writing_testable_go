@@ -1,14 +1,15 @@
-# Stage 2: Complete
+# Stage 3: Interfaces
 
-Tests are written. Verify they pass:
+This stage introduces the concept of interfaces.
 
-```bash
-go test ./shortener -v
-```
+Look at `shortener/store.go`:
+- `URLStore` is an interface
+- `MemoryStore` implements it
+- Later we could add `RedisStore`, `PostgresStore`, etc.
 
-All tests should pass. But there's a hidden bug...
+The key insight: code that uses `URLStore` doesn't care *how* data is stored.
 
 ## Next
 ```bash
-git checkout stage-3-interfaces
+git checkout stage-4-http
 ```
