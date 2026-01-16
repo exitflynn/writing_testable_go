@@ -1,24 +1,22 @@
-# Stage 4: HTTP Server
+# Stage 4: Fixed
 
-We now have a real web service.
+The bug is fixed!
 
-## Run it
+## What we did
+1. Added host check in `ValidateURL`
+2. Added test cases for `empty host` and `empty string`
+
+## Verify
 ```bash
-go run .
+go test ./shortener -v
 ```
 
-Open http://localhost:8080 in your browser.
+Now `https://` correctly returns an error.
 
-## Try it
-1. Enter `https://google.com` - works!
-2. Enter `https://` (no host) - what happens?
-
-## Key files
-- `server/server.go` - Gin routes and handlers
-- `server/static/index.html` - simple frontend
-- `main.go` - ties everything together
+## MVP Complete!
+You've built a URL shortener with tests that catch edge cases.
 
 ## Next
 ```bash
-git checkout stage-4-fixed
+git checkout stage-5-bad-code
 ```

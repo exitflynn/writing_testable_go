@@ -29,17 +29,19 @@ func ValidateURL(rawURL string) error {
 		return ErrInvalidScheme
 	}
 
+	if parsed.Host == "" {
+		return ErrInvalidURL
+	}
+
 	return nil
 }
 
-// --- INTERACTIVE: What does this code do? ---
 func GenerateShortCode(inputURL string) string {
 	h := fnv.New64a()
 	h.Write([]byte(inputURL))
 	return strconv.FormatUint(h.Sum64(), 36)
 }
 
-// --- END INTERACTIVE ---
 
 func CreateMapping(longURL string) (*URLMapping, error) {
 	if err := ValidateURL(longURL); err != nil {

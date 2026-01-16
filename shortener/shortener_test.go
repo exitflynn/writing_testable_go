@@ -13,8 +13,8 @@ func TestValidateURL(t *testing.T) {
 		{"valid with port", "https://localhost:8080/api", false},
 		{"ftp scheme", "ftp://files.example.com", true},
 		{"no scheme", "example.com", true},
-		// Missing: empty host case like "https://"
-		// This is the bug we'll discover later!
+		{"empty host", "https://", true},
+		{"empty string", "", true},
 	}
 
 	for _, tt := range tests {
