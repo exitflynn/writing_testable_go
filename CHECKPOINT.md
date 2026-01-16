@@ -1,25 +1,33 @@
-# Stage 6: mockgen
+# Stage 7: Integration Tests
 
-Generated mock with uber/mock: `mocks/mock_cache.go`
+Test with real (or near-real) Redis.
 
-## Generate command
+## testcontainers (requires Docker)
+Spins up real Redis in a container:
 ```bash
-mockgen -source=shortener/cache.go -destination=mocks/mock_cache.go -package=mocks
+go test ./integration -v -tags=integration -run TestWithRealRedis
 ```
 
-## Features demonstrated
-- `EXPECT()` - set expectations
-- `Return()` - specify return values
-- `gomock.Any()` - match any argument
-- `gomock.InOrder()` - verify call order
-- `Times(n)` - verify call count
-
-## Run tests
+## miniredis (no Docker)
+In-memory Redis implementation:
 ```bash
-go test ./shortener -v -run "TestURLServiceV2_"
+go test ./integration -v -run TestWithMiniredis
 ```
 
-## Next
-```bash
-git checkout stage-7-integration
-```
+## When to use what
+- **Unit tests**: mocks (fast, isolated)
+- **Integration tests**: miniredis or testcontainers
+- **E2E/staging**: real infrastructure
+
+## Record-Replay (brief mention)
+For HTTP APIs, check out `go-vcr` or `httpmock` to record real responses and replay in tests.
+
+## Workshop Complete!
+You've learned:
+1. Go basics with real project
+2. Table-driven tests
+3. Finding bugs through testing
+4. Interfaces for testability
+5. Dependency injection
+6. DIY mocks and mockgen
+7. Integration testing
