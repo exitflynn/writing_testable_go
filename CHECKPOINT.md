@@ -1,20 +1,24 @@
-# Stage 6: Decoupled
+# Stage 6: DIY Mock
 
-Compare `bad_example/tightly_coupled.go` with `shortener/cache.go`.
+We wrote our own mock: `shortener/mock_cache_diy.go`
 
-## The fix
-1. Define `CacheClient` interface
-2. Accept interface in constructor
-3. `RedisCache` implements the interface
+## How it works
+- Implements `CacheClient` interface
+- Stores data in a map
+- Has `SetErr`/`GetErr` fields to simulate errors
+- Tracks call counts
 
-## Key insight
-`URLServiceV2` doesn't know or care if it's using Redis, memory, or anything else.
+## Run tests
+```bash
+go test ./shortener -v -run TestURLServiceV2
+```
 
-## Files
-- `shortener/cache.go` - interface + URLServiceV2
-- `shortener/redis_cache.go` - Redis implementation
+## Downsides of DIY mocks
+- Tedious to write
+- Need to update when interface changes
+- No built-in expectation checking
 
 ## Next
 ```bash
-git checkout stage-6-mock-diy
+git checkout stage-6-mockgen
 ```
