@@ -1,24 +1,25 @@
-# Stage 6: DIY Mock
+# Stage 6: mockgen
 
-We wrote our own mock: `shortener/mock_cache_diy.go`
+Generated mock with uber/mock: `mocks/mock_cache.go`
 
-## How it works
-- Implements `CacheClient` interface
-- Stores data in a map
-- Has `SetErr`/`GetErr` fields to simulate errors
-- Tracks call counts
+## Generate command
+```bash
+mockgen -source=shortener/cache.go -destination=mocks/mock_cache.go -package=mocks
+```
+
+## Features demonstrated
+- `EXPECT()` - set expectations
+- `Return()` - specify return values
+- `gomock.Any()` - match any argument
+- `gomock.InOrder()` - verify call order
+- `Times(n)` - verify call count
 
 ## Run tests
 ```bash
-go test ./shortener -v -run TestURLServiceV2
+go test ./shortener -v -run "TestURLServiceV2_"
 ```
-
-## Downsides of DIY mocks
-- Tedious to write
-- Need to update when interface changes
-- No built-in expectation checking
 
 ## Next
 ```bash
-git checkout stage-6-mockgen
+git checkout stage-7-integration
 ```
