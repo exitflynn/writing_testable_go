@@ -29,21 +29,19 @@ func ValidateURL(rawURL string) error {
 		return ErrInvalidScheme
 	}
 
-	if parsed.Host == "" {
-		return ErrInvalidURL
-	}
+	// BUG: we don't check for empty host properly
+	// url.Parse("http://") gives empty host but no error
+	// This will cause issues when we try to use the URL later
 
 	return nil
 }
 
-// --- INTERACTIVE: What does this code do? ---
 func GenerateShortCode(inputURL string) string {
 	h := fnv.New64a()
 	h.Write([]byte(inputURL))
 	return strconv.FormatUint(h.Sum64(), 36)
 }
 
-// --- END INTERACTIVE ---
 
 func CreateMapping(longURL string) (*URLMapping, error) {
 	if err := ValidateURL(longURL); err != nil {
