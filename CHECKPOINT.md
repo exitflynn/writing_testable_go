@@ -1,20 +1,20 @@
-# Stage 5: Bad Code Example
+# Stage 6: Decoupled
 
-Look at `bad_example/tightly_coupled.go`.
+Compare `bad_example/tightly_coupled.go` with `shortener/cache.go`.
 
-## What's wrong?
-1. Redis client created inside methods
-2. Hardcoded configuration (localhost:6379)
-3. No way to swap implementations
-4. Every call creates a new connection
+## The fix
+1. Define `CacheClient` interface
+2. Accept interface in constructor
+3. `RedisCache` implements the interface
 
-## Why is this bad for testing?
-- Need a real Redis running
-- Can't mock the redis client
-- Can't control return values
-- Tests are slow and flaky
+## Key insight
+`URLServiceV2` doesn't know or care if it's using Redis, memory, or anything else.
+
+## Files
+- `shortener/cache.go` - interface + URLServiceV2
+- `shortener/redis_cache.go` - Redis implementation
 
 ## Next
 ```bash
-git checkout stage-6-decoupled
+git checkout stage-6-mock-diy
 ```
