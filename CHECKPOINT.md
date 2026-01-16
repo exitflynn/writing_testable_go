@@ -1,22 +1,20 @@
-# Stage 4: Fixed
+# Stage 5: Bad Code Example
 
-The bug is fixed!
+Look at `bad_example/tightly_coupled.go`.
 
-## What we did
-1. Added host check in `ValidateURL`
-2. Added test cases for `empty host` and `empty string`
+## What's wrong?
+1. Redis client created inside methods
+2. Hardcoded configuration (localhost:6379)
+3. No way to swap implementations
+4. Every call creates a new connection
 
-## Verify
-```bash
-go test ./shortener -v
-```
-
-Now `https://` correctly returns an error.
-
-## MVP Complete!
-You've built a URL shortener with tests that catch edge cases.
+## Why is this bad for testing?
+- Need a real Redis running
+- Can't mock the redis client
+- Can't control return values
+- Tests are slow and flaky
 
 ## Next
 ```bash
-git checkout stage-5-bad-code
+git checkout stage-6-decoupled
 ```
