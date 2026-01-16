@@ -1,6 +1,10 @@
 package shortener
 
 import (
+	"errors"
+	"hash/fnv"
+	"net/url"
+	"strconv"
 	"time"
 )
 
@@ -10,27 +14,38 @@ type URLMapping struct {
 	CreatedAt time.Time
 }
 
-// ValidateURL checks if the given URL is valid.
-// Returns an error if invalid.
+var (
+	ErrInvalidURL    = errors.New("invalid URL")
+	ErrInvalidScheme = errors.New("URL must use http or https")
+)
+
 func ValidateURL(rawURL string) error {
-	// TODO: check if URL has valid scheme (http/https)
-	// TODO: check if URL can be parsed
-	panic("not implemented")
+	parsed, err := url.Parse(rawURL)
+	if err != nil {
+		return ErrInvalidURL
+	}
+
+	if parsed.Scheme != "http" && parsed.Scheme != "https" {
+		return ErrInvalidScheme
+	}
+
+	return nil
 }
 
-// GenerateShortCode creates a short code from a URL.
-// The same URL should always produce the same code.
-func GenerateShortCode(url string) string {
-	// TODO: use hash/fnv to generate a hash
-	// TODO: convert to base62 string (a-z, A-Z, 0-9)
-	panic("not implemented")
+func GenerateShortCode(inputURL string) string {
+	h := fnv.New64a()
+	h.Write([]byte(inputURL))
+	return strconv.FormatUint(h.Sum64(), 36)
 }
 
-// CreateMapping validates a URL and creates a mapping.
-// Returns error if URL is invalid.
 func CreateMapping(longURL string) (*URLMapping, error) {
-	// TODO: validate the URL first
-	// TODO: generate short code
-	// TODO: return URLMapping with current time
-	panic("not implemented")
+	if err := ValidateURL(longURL); err != nil {
+		return nil, err
+	}
+
+	return &URLMapping{
+		ShortCode: GenerateShortCode(longURL),
+		LongURL:   longURL,
+		CreatedAt: time.Now(),
+	}, nil
 }

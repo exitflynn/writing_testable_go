@@ -1,26 +1,17 @@
-# Stage 1: Go Basics
+# Stage 1: Complete
 
-## Goal
-Implement the URL shortener core logic.
+Implementation is done. Verify it works:
 
-## Your Task
-Edit `shortener/shortener.go` and implement the three functions:
-- `ValidateURL` - check if URL is valid
-- `GenerateShortCode` - create a deterministic short code  
-- `CreateMapping` - combine both and return a mapping
-
-## Verify
 ```bash
 go run .
-# Should print: Shortened: <code> -> https://example.com/very/long/path
 ```
 
-## Hints
-- Use `net/url` package's `Parse` function
-- Use `hash/fnv` for hashing
-- Use `strconv.FormatUint` with base 36 for short codes
+Expected output:
+```
+Shortened: abc123xyz -> https://example.com/very/long/path
+```
 
-## Stuck?
+## Next
 ```bash
-git checkout stage-1-complete
+git checkout stage-2-template
 ```
