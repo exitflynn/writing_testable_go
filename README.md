@@ -21,9 +21,9 @@ go mod download
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/workshop/writing-testable-go)
 
-**Falling behind?** Checkout the `-complete` version of this stage/lab:
+**Falling behind?** Checkout the `-complete` version of this lab:
 ```bash
-git checkout stage-1-complete
+git checkout lab-1-complete
 ```
 
 ## Verify Setup
