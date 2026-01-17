@@ -8,7 +8,6 @@ import (
 
 var ErrCacheMiss = errors.New("cache miss")
 
-// MockCacheClient is a hand-written mock for testing.
 type MockCacheClient struct {
 	data     map[string]string
 	SetErr   error
